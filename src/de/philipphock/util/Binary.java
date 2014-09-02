@@ -1,4 +1,6 @@
 package de.philipphock.util;
+
+
 /**
  * Byte Utility Class
  * @author Philipp Hock, mail@philipphock.de
@@ -60,6 +62,76 @@ public class Binary {
 		}else{
 			return sb.toString();
 		}
+	}
+	
+	/**
+	 * creates a byte array from a string that represents a binary string<br>
+	 * <code>
+	 * <pre>
+	 *  ParityCheck p = new ParityCheck();
+	 *	byte[] data = new byte[8];
+	 *	StringBuilder sb = new StringBuilder();
+	 *	sb.append("10001001");
+	 *	sb.append("10001001");
+	 *	sb.append("11111111");
+	 *	sb.append("00000000");
+	 *	sb.append("00001000");
+		
+	 *	byte[] bs = Binary.fromBinaryString(sb.toString());
+	 *	String s = Binary.toBinaryString(bs, "\n", "0", "1", null);
+	 *	System.out.println(s);
+	 * </pre>
+	 * </code>
+	 *  outputs:
+	 *  <pre>
+	 *  10001001
+	 *  10001001
+	 *  11111111
+	 *  00000000
+	 *  00001000
+	 *  </pre>
+	 * @param s the string representing a binary string. Must be a multiple of 8
+	 * @return the binary string
+	 */
+	public static byte[] fromBinaryString(String s){
+		int bytelen = 8;
+		int len =(int) Math.ceil(s.length()/8);
+		byte[] ret = new byte[len];
+		for (int i=0;i<ret.length;i++){
+			int start = bytelen*i;
+			ret[i] = byteFromBinaryString(s.substring(start,start+bytelen));
+		}
+		return ret;
+	}
+	
+	/**
+	 * creates a byte from a string, representing a byte.
+	 * @param s the string. Must be a multiple of 8. If not, 0 is returned.
+	 * 
+	 * <code>
+	 * <pre>
+	 *  byte b = byteFromBinaryString("00001000");
+	 *  // b is now 8
+	 * </pre> 
+	 * </code>
+	 * 
+	 * @return the byte
+	 */
+	public static byte byteFromBinaryString(String s){
+		if (s==null || s.length() > 8){
+			return 0;
+		}
+		byte ret = 0;
+		for(int i=s.length()-1;i>=0;i--){
+			char c = s.charAt(i);
+			int op = 0;
+			if (c == '1'){
+				op = 1;
+			}
+			ret =  (byte) (ret | (op<<7-i));
+			
+		}
+		return ret;
 	}
 	
 //	public static void main(String[] args) {
