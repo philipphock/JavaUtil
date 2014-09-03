@@ -37,6 +37,15 @@ public class Binary {
 	}
 	
 	/**
+	 * short method stub for {@link Binary#toBinaryString(byte[], String, String, String, StringBuilder)
+	 * @param b the byte to convert
+	 * @return a string representation of b wit 1, 0 and spaces
+	 */
+	public static String toBinaryString(byte[] b){
+		return toBinaryString(b, " ", "0", "1", null);
+	}
+	
+	/**
 	 * Creates a Binary String for a given byte, if sb is null, the String will be returned, otherwise, sb is used, null will be returned
 	 * @param b the byte to visualize
 	 * @param zero how zeros are visualized
